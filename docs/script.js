@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function() {
     let position = 0;
 
     function getRandomSpeed() {
-        return Math.random()+1; // Random speed between 1 and 6
+        return Math.random() * 1.5 + 0.5; // Random speed between 0.5 and 2
     }
 
     let speed = getRandomSpeed();
@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function() {
     function changeSpeed() {
         speed = getRandomSpeed();
         speedCounter.textContent = `Current speed: ${speed.toFixed(2)}`;
-        setTimeout(changeSpeed, Math.random() * 1000 + 1000); 
+        setTimeout(changeSpeed, Math.random() * 1000 + 500); 
     }
 
     moveImage();
@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function() {
     fetch('update.json')
         .then(response => response.json())
         .then(data => {
-            document.getElementById('update-text').textContent = `Last updated: ${data.last_update}`;
+            document.getElementById('update-text').textContent = `Last updated: ${data.last_update}, Update count: ${data.count}`;
         })
         .catch(error => {
             console.error('Error fetching update text:', error);
