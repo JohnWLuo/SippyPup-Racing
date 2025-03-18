@@ -1,7 +1,12 @@
 document.addEventListener("DOMContentLoaded", function() {
     const img = document.getElementById("moving-image");
     let position = 0;
-    const speed = 2; // Adjust the speed as needed
+
+    function getRandomSpeed() {
+        return Math.random() * 5 + 1; // Random speed between 1 and 6
+    }
+
+    let speed = getRandomSpeed();
 
     function moveImage() {
         position += speed;
