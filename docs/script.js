@@ -7,7 +7,8 @@ document.addEventListener("DOMContentLoaded", function() {
         position += speed;
         img.style.left = position + "px";
 
-        if (position < window.innerWidth) {
+        // Stop the image when it reaches the end of the screen
+        if (position + img.width < window.innerWidth) {
             requestAnimationFrame(moveImage);
         }
     }
