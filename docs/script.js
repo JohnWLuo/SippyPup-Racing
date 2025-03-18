@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function() {
     let position = 0;
 
     function getRandomSpeed() {
-        return Math.random() * 5 + 1; // Random speed between 1 and 6
+        return Math.random();
     }
 
     let speed = getRandomSpeed();
@@ -18,7 +18,13 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
+    function changeSpeed() {
+        speed = getRandomSpeed();
+        setTimeout(changeSpeed, Math.random()); // Change speed at random intervals between 1 and 3 seconds
+    }
+
     moveImage();
+    changeSpeed();
 
     // Fetch and display the update text
     fetch('update.json')
