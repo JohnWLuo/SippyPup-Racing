@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function() {
     fetch('update.json')
         .then(response => response.json())
         .then(data => {
-            document.getElementById('update-text').textContent = `Last updated: ${data.last_update}, Update count: ${data.count}`;
+            document.getElementById('update-text').textContent = `Version Number: ${data.count}`;
         })
         .catch(error => {
             console.error('Error fetching update text:', error);
