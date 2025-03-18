@@ -14,4 +14,15 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     moveImage();
+
+    // Fetch and display the update text
+    fetch('update.json')
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('update-text').textContent = `Last updated: ${data.last_update}`;
+        })
+        .catch(error => {
+            console.error('Error fetching update text:', error);
+            document.getElementById('update-text').textContent = 'Error loading update text';
+        });
 });
