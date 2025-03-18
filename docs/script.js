@@ -1,9 +1,10 @@
 document.addEventListener("DOMContentLoaded", function() {
     const img = document.getElementById("moving-image");
+    const speedCounter = document.getElementById("speed-counter");
     let position = 0;
 
     function getRandomSpeed() {
-        return Math.random();
+        return Math.random()*2; // Random speed between 1 and 6
     }
 
     let speed = getRandomSpeed();
@@ -20,7 +21,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function changeSpeed() {
         speed = getRandomSpeed();
-        setTimeout(changeSpeed, Math.random()); // Change speed at random intervals between 1 and 3 seconds
+        speedCounter.textContent = `Current speed: ${speed.toFixed(2)}`;
+        setTimeout(changeSpeed, Math.random() *1000); // Change speed at random intervals between 1 and 3 seconds
     }
 
     moveImage();
