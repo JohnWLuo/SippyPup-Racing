@@ -14,8 +14,12 @@ document.addEventListener("DOMContentLoaded", function() {
         img.style.left = position + "px";
 
         // Stop the image when it reaches the end of the screen
-        if (position + img.width < window.innerWidth-100) {
+        if (position + img.width < window.innerWidth) {
             requestAnimationFrame(moveImage);
+        } else {
+            // If any part of the image is beyond the window inner width, put it back within
+            position = window.innerWidth - img.width;
+            img.style.left = position + "px";
         }
     }
 
