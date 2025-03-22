@@ -105,6 +105,24 @@ th {
     }
 }
 
+@keyframes moveUpFromBottom {
+    from {
+        transform: translateY(-100%);
+    }
+    to {
+        transform: translateY(0%);
+    }
+}
+
+@keyframes moveDownFromTop {
+    from {
+        transform: translateY(100%);
+    }
+    to {
+        transform: translateY(0%);
+    }
+}
+
 .position-changed {
     animation-duration: 0.35s;
     animation-timing-function: ease-in-out;

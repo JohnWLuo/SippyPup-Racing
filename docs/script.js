@@ -118,18 +118,20 @@ function updateLeaderboard() {
         if (currentIndex !== index) {
             // Add animation class for position change
             row.classList.add('position-changed');
-            if (currentIndex < index) {
-                row.classList.add('move-up');
-            } 
-            if (currentIndex > index){
-                row.classList.add('move-down');
-            }
             const nextRow = leaderboardBody.children[index];
-            leaderboardBody.insertBefore(row, nextRow);
+            if (currentIndex > index) {
+                // row.classList.add('move-up');
+                nextRow.classList.add('move-down');
+            } 
+            if (currentIndex < index){
+                // row.classList.add('move-down');
+                nextRow.classList.add('move-up');
+            }
             const animationEndHandler = () => {
                 row.classList.remove('position-changed', 'move-up', 'move-down');
                 row.removeEventListener('animationend', animationEndHandler);
             };
+            leaderboardBody.insertBefore(row, nextRow);
             row.addEventListener('animationend', animationEndHandler);
         }
         row.querySelector(".position").textContent = index + 1;
