@@ -1,70 +1,156 @@
-import MovingImage from './MovingImage.js';
+import SippyPup from './SippyPup.js';
+import {SippyPupList} from './SippyPupStables.js';
+
+let SippyPupRacersList = SippyPupList;
+let leaderboardBody; // Declare leaderboardBody at the top
+let startSippyPupRacersList = SippyPupRacersList.slice(); // Create a copy of the original list
 
 document.addEventListener("DOMContentLoaded", function() {
     const startButton = document.getElementById("start-button");
     const resetButton = document.getElementById("reset-button");
-    const leaderboardBody = document.querySelector("tbody");
+    const getInfoButton = document.getElementById("get-info-button"); // Add getInfoButton
+    leaderboardBody = document.getElementById("leaderboard-body"); // Initialize leaderboardBody
+    const raceTrack = document.getElementById("race-track");
 
-    const img1 = new MovingImage("moving-image-1", "distance-1", "speed-1", "time-1");
-    const img2 = new MovingImage("moving-image-2", "distance-2", "speed-2", "time-2");
-    const img3 = new MovingImage("moving-image-3", "distance-3", "speed-3", "time-3");
+    // Populate the race track with images
+    SippyPupRacersList.forEach((sippyPup, index) => {
+        const pupContainer = document.createElement("div");
+        pupContainer.classList.add("pup-container");
 
-    const images = [img1, img2, img3];
+        const img = document.createElement("img");
+        img.src = `SippyPups/${sippyPup.imageName}`;
+        img.alt = sippyPup.name;
+        img.classList.add("race-sippyPup");
 
-    function updateLeaderboard() {
-        images.sort((a, b) => {
-            if (b.position !== a.position) {
-                return b.position - a.position;
-            } else {
-                return a.startTime - b.startTime;
-            }
-        });
+        // Flip the image if iSlookingRight is false
+        if (!sippyPup.iSlookingRight) {
+            img.style.transform = "scaleX(-1)";
+        }
 
-        leaderboardBody.innerHTML = "";
-        images.forEach((img, index) => {
-            const row = document.createElement("tr");
-            row.innerHTML = `
-                <td><img src="${img.img.src}" alt="Moving Image ${index + 1}" style="width: 50px; height: 50px; transform: scaleX(-1);"></td>
-                <td id="distance-${index + 1}">${img.distanceDisplay.textContent}</td>
-                <td id="speed-${index + 1}">${img.speedDisplay.textContent}</td>
-                <td id="time-${index + 1}">${img.timeDisplay.textContent}</td>
-            `;
-            leaderboardBody.appendChild(row);
-        });
-    }
+        pupContainer.appendChild(img);
+        raceTrack.appendChild(pupContainer);
+        sippyPup.img = img; // Assign the image element to the pup object
 
-    images.forEach(img => {
-        img.onMove = updateLeaderboard;
-    });
+        // Create leaderboard entry
+        const row = document.createElement("tr");
+        row.innerHTML = `
+            <td class="position">${index + 1}</td>
+            <td class="name">
+                <img src="SippyPups/${sippyPup.imageName}" alt="${sippyPup.name}" class="leaderboard-img">
+                ${sippyPup.name}
+            </td>
+            <td class="speed">0</td>
+            <td class="distance">0%</td>
+            <td class="time">0.000s</td>
+        `;
+        leaderboardBody.appendChild(row);
+        sippyPup.leaderboardRow = row;
 
-    startButton.addEventListener("click", function() {
-        if (!img1.isMoving && !img2.isMoving && !img3.isMoving) {
-            img1.start();
-            img2.start();
-            img3.start();
+        // Flip the leaderboard image if iSlookingRight is false
+        const leaderboardImg = row.querySelector(".leaderboard-img");
+        if (!sippyPup.iSlookingRight) {
+            leaderboardImg.style.transform = "scaleX(-1)";
         }
     });
 
-    resetButton.addEventListener("click", function() {
-        img1.reset();
-        img2.reset();
-        img3.reset();
-        updateLeaderboard();
+    startButton.addEventListener("click", startRace);
+    resetButton.addEventListener("click", resetRace);
+    getInfoButton.addEventListener("click", getInfo); // Add event listener for getInfoButton
+});
+
+function startRace() {
+    console.log("Race started!");
+    startSippyPupRacersList = SippyPupRacersList.slice(); // Create a copy of the original list
+
+    SippyPupRacersList.forEach(sippyPup => {
+        sippyPup.start();
+        sippyPup.onMove = function() {
+            updateTimeAndDistance(sippyPup);
+            updateLeaderboard();
+        }; // Update leaderboard on move
+    });
+}
+
+function resetRace() {
+    console.log("Race reset!");
+    SippyPupRacersList.forEach(sippyPup => {
+        sippyPup.reset();
     });
 
-    // Fetch and display the update text
-    fetch('update.json')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+    // Reset the order of the SippyPup racers to the original order
+    SippyPupRacersList = startSippyPupRacersList.slice(); // Create a copy of the original list
+
+    // Update the leaderboard to reflect the original order
+    SippyPupRacersList.forEach((sippyPup, index) => {
+        const row = sippyPup.leaderboardRow;
+        if (row) {
+            row.querySelector(".position").textContent = index + 1;
+            row.querySelector(".speed").textContent = "0";
+            row.querySelector(".distance").textContent = "0%";
+            row.querySelector(".time").textContent = "0.000s";
+            leaderboardBody.appendChild(row); // Move row to the correct position
+        }
+    });
+}
+
+function updateTimeAndDistance(sippyPup) {
+    const row = sippyPup.leaderboardRow;
+    if (row) {
+        row.querySelector(".speed").textContent = sippyPup.speedDisplay;
+        row.querySelector(".distance").textContent = sippyPup.distanceDisplay;
+        row.querySelector(".time").textContent = sippyPup.timeDisplay + 's';
+    }
+}
+
+function updateLeaderboard() {
+    SippyPupRacersList.sort((a, b) => {
+        if (parseFloat(a.distanceDisplay) === parseFloat(b.distanceDisplay)) {
+            return parseFloat(a.timeDisplay) - parseFloat(b.timeDisplay);
+        }
+        return parseFloat(b.distanceDisplay) - parseFloat(a.distanceDisplay);
+    }); // Sort by distance first, then by time
+
+    SippyPupRacersList.forEach((sippyPup, index) => {
+        const row = sippyPup.leaderboardRow;
+        row.classList.add('leaderboard-row'); // Add animation class
+
+        // Update position
+        const currentIndex = parseInt(row.querySelector(".position").textContent) - 1;
+
+        if (currentIndex !== index) {
+            // Add animation class for position change
+            row.classList.add('position-changed');
+            if (currentIndex > index) {
+                row.classList.add('move-up');
+            } else if (currentIndex < index){
+                row.classList.add('move-down');
             }
-            return response.json();
-        })
-        .then(data => {
-            document.getElementById('update-text').textContent = `Version Number: ${data.count}`;
-        })
-        .catch(error => {
-            console.error('Error fetching update text:', error);
-            document.getElementById('update-text').textContent = 'Error loading update text';
-        });
-});
+            // Swap rows instead of appending
+            const nextRow = leaderboardBody.children[index];
+            leaderboardBody.insertBefore(row, nextRow);
+            setTimeout(() => {
+                row.classList.remove('position-changed', 'move-up', 'move-down');
+                row.style.transform = '';
+            }, 500); // Remove the class after the animation duration
+        }
+        row.querySelector(".position").textContent = index + 1;
+
+        // Update speed, distance, and time
+        row.querySelector(".speed").textContent = sippyPup.speedDisplay;
+        row.querySelector(".distance").textContent = sippyPup.distanceDisplay;
+        row.querySelector(".time").textContent = sippyPup.timeDisplay + 's';
+    });
+}
+
+function getInfo() {
+    console.log("Getting SippyPup information...");
+    console.table(SippyPupRacersList.map((sippyPup, index) => ({
+        Name: sippyPup.name,
+        Speed: sippyPup.speedDisplay,
+        Distance: sippyPup.distanceDisplay,
+        Time: sippyPup.timeDisplay + 's',
+        Row: sippyPup.leaderboardRow ? sippyPup.leaderboardRow.outerHTML : 'N/A',
+        'Current Index': index,
+        Position: sippyPup.leaderboardRow ? sippyPup.leaderboardRow.querySelector(".position").textContent : 'N/A'
+    })));
+}

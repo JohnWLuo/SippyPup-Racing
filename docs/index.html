@@ -12,58 +12,17 @@
     <header>
         <h1>Welcome to SippyPup Racing</h1>
     </header>
-    <main>
-        <section>
-            <button id="start-button">Start</button>
-            <button id="reset-button">Reset</button>
-        </section>
-        <section>
-            <h2>Leaderboard</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Image</th>
-                        <th>Distance</th>
-                        <th>Speed</th>
-                        <th>Time</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><img src="SippyPups/hanky panky Head Shot.png" alt="Moving Image 1" style="width: 50px; height: 50px; transform: scaleX(-1);"></td>
-                        <td id="distance-1">0%</td>
-                        <td id="speed-1">0%</td>
-                        <td id="time-1">0.000s</td>
-                    </tr>
-                    <tr>
-                        <td><img src="SippyPups/Lyn_Mame_Test.jpg" alt="Moving Image 2" style="width: 50px; height: 50px; transform: scaleX(-1);"></td>
-                        <td id="distance-2">0%</td>
-                        <td id="speed-2">0%</td>
-                        <td id="time-2">0.000s</td>
-                    </tr>
-                    <tr>
-                        <td><img src="SippyPups/Palmesan.png" alt="Moving Image 3" style="width: 50px; height: 50px; transform: scaleX(-1);"></td>
-                        <td id="distance-3">0%</td>
-                        <td id="speed-3">0%</td>
-                        <td id="time-3">0.000s</td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
-        <section>
-            <img id="moving-image-1" src="SippyPups/hanky panky Head Shot.png" alt="Moving Image 1" style="position: absolute; top: 450px; left: 0; width: 100px; height: 100px; transform: scaleX(-1);">
-        </section>
-        <section>
-            <img id="moving-image-2" src="SippyPups/Lyn_Mame_Test.jpg" alt="Moving Image 2" style="position: absolute; top: 600px; left: 0; width: 100px; height: 100px; transform: scaleX(-1);">
-        </section>
-        <section>
-            <img id="moving-image-3" src="SippyPups/Palmesan.png" alt="Moving Image 3" style="position: absolute; top: 750px; left: 0; width: 100px; height: 100px; transform: scaleX(-1);">
-        </section>
-    </main>
-    <!-- <footer>
-        <h2>Link to the Github Repo</h2>
-        <p><a href="https://github.com/JohnWLuo/SippyPup-Racing" target="_blank">https://github.com/JohnWLuo/SippyPup-Racing</a></p>
-        <p id="update-text">Version Number: </p>
-    </footer> -->
+    <section>
+        <button id="start-button">Start</button>
+        <button id="reset-button">Reset</button>
+        <button id="get-info-button">Get Info</button> 
+    </section>
+    <section>
+        <table id="leaderboard-body">
+        </table>
+    </section>
+    <section>
+        <div id="race-track"></div>
+    </section>
 </body>
 </html>

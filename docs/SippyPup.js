@@ -1,20 +1,17 @@
-class MovingImage {
-    constructor(imgId, distanceId, speedId, timeId) {
-        this.img = document.getElementById(imgId);
-        this.distanceDisplay = document.getElementById(distanceId);
-        this.speedDisplay = document.getElementById(speedId);
-        this.timeDisplay = document.getElementById(timeId);
-        this.position = 0;
-        this.isMoving = false;
-        this.animationFrameId = null;
-        this.speed = this.getRandomSpeed();
-        this.startTime = 0;
-        this.timeInterval = null;
-        this.onMove = null;
+class SippyPup {
+    constructor() {
+  
     }
 
     getRandomSpeed() {
         return Math.random() * 2 + 0.5; // Random speed between 0.5% and 2% of the screen width per frame
+    }
+    
+    changeSpeed() {
+        if (!this.isMoving) return;
+        this.speed = this.getRandomSpeed();
+        this.speedDisplay.textContent = this.speed.toFixed(2) + "%";
+        setTimeout(this.changeSpeed.bind(this), Math.random() * 500 + 500);
     }
 
     moveImage() {
@@ -38,19 +35,13 @@ class MovingImage {
         }
     }
 
-    changeSpeed() {
-        if (!this.isMoving) return;
-        this.speed = this.getRandomSpeed();
-        this.speedDisplay.textContent = this.speed.toFixed(2) + "%";
-        setTimeout(this.changeSpeed.bind(this), Math.random() * 500 + 500);
-    }
 
     start() {
         this.isMoving = true;
         this.startTime = Date.now();
         this.timeInterval = setInterval(() => {
             const elapsedTime = Date.now() - this.startTime;
-            this.timeDisplay.textContent = `Time: ${(elapsedTime / 1000).toFixed(3)}s`;
+            this.timeDisplay.textContent = `Time: ${(elapsedTime / 1000).toFixed(3)}`;
         }, 10);
         this.moveImage();
         this.changeSpeed();
@@ -64,8 +55,8 @@ class MovingImage {
         this.img.style.left = this.position + "%";
         this.speedDisplay.textContent = "0%";
         this.distanceDisplay.textContent = "0%";
-        this.timeDisplay.textContent = "0.000s";
+        this.timeDisplay.textContent = "0.000";
     }
 }
 
-export default MovingImage;
+export default SippyPup;

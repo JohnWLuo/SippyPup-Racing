@@ -30,3 +30,87 @@ footer {
     text-align: center;
     padding: 0.5rem;
 }
+
+#race-track {
+    position: relative;
+}
+
+#race-track img {
+    max-width: 100%;
+    height: auto;
+    position: absolute; /* Ensure images are positioned absolutely */
+}
+
+th {
+    text-align: left;
+}
+
+.name {
+    padding-right: 30px;
+}
+.name img {
+    width: 30px;
+    height: 30px;
+}
+
+#position-header {
+    width: auto;
+}
+
+#name-header {
+    width: auto;
+    padding-right: 20px;
+}
+
+#speed-header {
+    width: auto;
+}
+
+#distance-header {
+    width: auto;
+}
+
+#time-header {
+    width: auto;
+}
+
+.race-sippyPup {
+    width: 100px;
+    height: 100px;
+}
+
+.pup-container {
+    height: 100px;
+    padding-bottom: 10px;
+}
+
+@keyframes moveUp {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(-25%);
+    }
+}
+
+@keyframes moveDown {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(25%);
+    }
+}
+
+.position-changed {
+    animation-duration: 0.5s;
+    animation-timing-function: ease-in-out;
+}
+
+.position-changed.move-up {
+    animation-name: moveUp;
+}
+
+.position-changed.move-down {
+    animation-name: moveDown;
+}
