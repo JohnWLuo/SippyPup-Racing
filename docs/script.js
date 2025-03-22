@@ -112,28 +112,25 @@ function updateLeaderboard() {
 
     SippyPupRacersList.forEach((sippyPup, index) => {
         const row = sippyPup.leaderboardRow;
-        row.classList.add('leaderboard-row'); // Add animation class
-
         // Update position
         const currentIndex = parseInt(row.querySelector(".position").textContent) - 1;
 
         if (currentIndex !== index) {
             // Add animation class for position change
             row.classList.add('position-changed');
-            if (currentIndex > index) {
+            if (currentIndex < index) {
                 row.classList.add('move-up');
-            } else if (currentIndex < index){
+            } 
+            if (currentIndex > index){
                 row.classList.add('move-down');
             }
-
-            setTimeout(() => {
-                            // Swap rows instead of appending
-                const nextRow = leaderboardBody.children[index];
-                leaderboardBody.insertBefore(row, nextRow);
-
+            const nextRow = leaderboardBody.children[index];
+            leaderboardBody.insertBefore(row, nextRow);
+            const animationEndHandler = () => {
                 row.classList.remove('position-changed', 'move-up', 'move-down');
-                row.style.transform = '';
-            }, 500); // Remove the class after the animation duration
+                row.removeEventListener('animationend', animationEndHandler);
+            };
+            row.addEventListener('animationend', animationEndHandler);
         }
         row.querySelector(".position").textContent = index + 1;
 

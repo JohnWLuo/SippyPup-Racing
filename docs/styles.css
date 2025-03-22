@@ -47,8 +47,11 @@ th {
 
 .name {
     padding-right: 30px;
+    display: flex;
+    align-items: center;
 }
-.name img {
+
+.leaderboard-img {
     width: 30px;
     height: 30px;
 }
@@ -86,7 +89,7 @@ th {
 
 @keyframes moveUp {
     from {
-        transform: translateY(0);
+        transform: translateY(0%);
     }
     to {
         transform: translateY(-100%);
@@ -95,7 +98,7 @@ th {
 
 @keyframes moveDown {
     from {
-        transform: translateY(0);
+        transform: translateY(0%);
     }
     to {
         transform: translateY(100%);
@@ -103,7 +106,7 @@ th {
 }
 
 .position-changed {
-    animation-duration: 0.5s;
+    animation-duration: 0.35s;
     animation-timing-function: ease-in-out;
 }
 
