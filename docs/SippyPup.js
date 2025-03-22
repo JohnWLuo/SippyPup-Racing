@@ -49,7 +49,7 @@ class SippyPup {
         this.startTime = Date.now();
         this.timeInterval = setInterval(() => {
             const elapsedTime = Date.now() - this.startTime;
-            this.timeDisplay = `Time: ${(elapsedTime / 1000).toFixed(3)}`;
+            this.timeDisplay = (elapsedTime / 1000).toFixed(3);
         }, 10);
         this.moveImage();
         this.changeSpeed();
@@ -63,7 +63,7 @@ class SippyPup {
         this.img.style.left = this.position + "%";
         this.speedDisplay = "0%";
         this.distanceDisplay = "0%";
-        this.timeDisplay = "0.000";
+        this.timeDisplay = 0.000;
     }
 }
 

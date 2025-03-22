@@ -125,10 +125,12 @@ function updateLeaderboard() {
             } else if (currentIndex < index){
                 row.classList.add('move-down');
             }
-            // Swap rows instead of appending
-            const nextRow = leaderboardBody.children[index];
-            leaderboardBody.insertBefore(row, nextRow);
+
             setTimeout(() => {
+                            // Swap rows instead of appending
+                const nextRow = leaderboardBody.children[index];
+                leaderboardBody.insertBefore(row, nextRow);
+
                 row.classList.remove('position-changed', 'move-up', 'move-down');
                 row.style.transform = '';
             }, 500); // Remove the class after the animation duration

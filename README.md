@@ -2,4 +2,8 @@
 
 Link to page: https://johnwluo.github.io/SippyPup-Racing/
 
-Test to the post commit 3
+To DO:
+* Fix the animations
+* character select
+* character removal
+* Random Characters
