@@ -119,19 +119,20 @@ function updateLeaderboard() {
             // Add animation class for position change
             row.classList.add('position-changed');
             const nextRow = leaderboardBody.children[index];
+            leaderboardBody.insertBefore(row, nextRow);
             if (currentIndex > index) {
-                // row.classList.add('move-up');
-                nextRow.classList.add('move-down');
+                row.classList.add('move-up-from-bottom');
+                nextRow.classList.add('move-down-from-top');
             } 
             if (currentIndex < index){
                 // row.classList.add('move-down');
-                nextRow.classList.add('move-up');
+                // nextRow.classList.add('move-up');
             }
             const animationEndHandler = () => {
-                row.classList.remove('position-changed', 'move-up', 'move-down');
+                row.classList.remove('position-changed', 'move-up', 'move-down', 'move-up-from-bottom', 'move-down-from-top');
+                nextRow.classList.remove('position-changed', 'move-up', 'move-down', 'move-up-from-bottom', 'move-down-from-top');
                 row.removeEventListener('animationend', animationEndHandler);
             };
-            leaderboardBody.insertBefore(row, nextRow);
             row.addEventListener('animationend', animationEndHandler);
         }
         row.querySelector(".position").textContent = index + 1;
