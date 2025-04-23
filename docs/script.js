@@ -3,6 +3,7 @@ import {SippyPupList} from './SippyPupStables.js';
 
 let SippyPupRacersList = SippyPupList;
 let leaderboardBody; // Declare leaderboardBody at the top
+let leaderboardBodyPosition; // Declare leaderboardBody at the top
 let startSippyPupRacersList = SippyPupRacersList.slice(); // Create a copy of the original list
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -10,7 +11,52 @@ document.addEventListener("DOMContentLoaded", function() {
     const resetButton = document.getElementById("reset-button");
     const getInfoButton = document.getElementById("get-info-button"); // Add getInfoButton
     leaderboardBody = document.getElementById("leaderboard-body"); // Initialize leaderboardBody
+    leaderboardBodyPosition = document.getElementById("position-leaderboard-body"); // Initialize leaderboardBody
+
     const raceTrack = document.getElementById("race-track");
+
+    const addSippyPupButton = document.getElementById("add-sippypup-button");
+    const addSippyPupModal = document.getElementById("add-sippypup-modal");
+    const closeModalButton = document.getElementById("close-modal");
+    const modalContent = addSippyPupModal.querySelector(".modal-content");
+
+    addSippyPupButton.addEventListener("click", () => {
+        addSippyPupModal.style.display = "flex";
+    });
+
+    closeModalButton.addEventListener("click", () => {
+        addSippyPupModal.style.display = "none";
+    });
+
+    window.addEventListener("click", (event) => {
+        if (event.target.classList.contains("modal-overlay")) {
+            addSippyPupModal.style.display = "none";
+        }
+    });
+
+    // Populate modal with SippyPup images as buttons
+    const sippyPupButtonsContainer = document.createElement("div");
+    sippyPupButtonsContainer.classList.add("sippypup-buttons-container");
+
+    SippyPupList.forEach((sippyPup) => {
+        const button = document.createElement("button");
+        button.classList.add("sippypup-button");
+
+        const img = document.createElement("img");
+        img.src = `SippyPups/${sippyPup.imageName}`;
+        img.alt = sippyPup.name;
+        img.classList.add("sippypup-button-img");
+
+        button.appendChild(img);
+        button.addEventListener("click", () => {
+            console.log(`Selected SippyPup: ${sippyPup.name}`);
+            // Add logic to handle SippyPup selection
+        });
+
+        sippyPupButtonsContainer.appendChild(button);
+    });
+
+    modalContent.appendChild(sippyPupButtonsContainer);
 
     // Populate the race track with images
     SippyPupRacersList.forEach((sippyPup, index) => {
@@ -34,7 +80,7 @@ document.addEventListener("DOMContentLoaded", function() {
         // Create leaderboard entry
         const row = document.createElement("tr");
         row.innerHTML = `
-            <td class="position">${index + 1}</td>
+            <td class="position" hidden>${index + 1}</td>
             <td class="name">
                 <img src="SippyPups/${sippyPup.imageName}" alt="${sippyPup.name}" class="leaderboard-img">
                 ${sippyPup.name}
@@ -46,6 +92,19 @@ document.addEventListener("DOMContentLoaded", function() {
         leaderboardBody.appendChild(row);
         sippyPup.leaderboardRow = row;
 
+
+        const rowPosition = document.createElement("tr");
+        rowPosition.innerHTML = `
+            <td class="position ${
+                index === 0 ? 'gold' :
+                index === 1 ? 'silver' :
+                index === 2 ? 'bronze' : ''
+            }">${index + 1}</td>
+        `;
+        leaderboardBodyPosition.appendChild(rowPosition);
+
+        
+
         // Flip the leaderboard image if iSlookingRight is false
         const leaderboardImg = row.querySelector(".leaderboard-img");
         if (!sippyPup.iSlookingRight) {
@@ -55,7 +114,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
     startButton.addEventListener("click", startRace);
     resetButton.addEventListener("click", resetRace);
-    getInfoButton.addEventListener("click", getInfo); // Add event listener for getInfoButton
 });
 
 function startRace() {
@@ -121,12 +179,12 @@ function updateLeaderboard() {
             const nextRow = leaderboardBody.children[index];
             leaderboardBody.insertBefore(row, nextRow);
             if (currentIndex > index) {
-                row.classList.add('move-up-from-bottom');
-                nextRow.classList.add('move-down-from-top');
-            } 
-            if (currentIndex < index){
-                // row.classList.add('move-down');
-                // nextRow.classList.add('move-up');
+                if (!row.classList.contains('move-up-from-bottom') && !row.classList.contains('move-down-from-top')) {
+                    row.classList.add('move-up-from-bottom');
+                }
+                if (!nextRow.classList.contains('move-up-from-bottom') && !nextRow.classList.contains('move-down-from-top')) {
+                    nextRow.classList.add('move-down-from-top');
+                }
             }
             const animationEndHandler = () => {
                 row.classList.remove('position-changed', 'move-up', 'move-down', 'move-up-from-bottom', 'move-down-from-top');

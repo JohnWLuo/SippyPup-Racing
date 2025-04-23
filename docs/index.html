@@ -15,26 +15,46 @@
     <section>
         <button id="start-button">Start</button>
         <button id="reset-button">Reset</button>
-        <button id="get-info-button">Get Info</button> 
+        <button id="add-sippypup-button">Add SippyPup</button>
     </section>
     <section>
-        <table>
-            <thead>
-                <tr>
-                    <th id="position-header">Position</th>
-                    <th id="name-header">Name</th>
-                    <th id="speed-header">Speed</th>
-                    <th id="distance-header">Distance</th>
-                    <th id="time-header">Time</th>
-                </tr>
-            </thead>
-            <tbody id="leaderboard-body">
-                <!-- Leaderboard rows will be populated here -->
-            </tbody>
-        </table>
+        <div class="tables-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th id="position-header">Position</th>
+                    </tr>
+                </thead>
+                <tbody id="position-leaderboard-body">
+                    <!-- Position leaderboard rows will be dynamically generated here -->
+                </tbody>
+            </table>
+            <table>
+                <thead>
+                    <tr>
+                        <th id="name-header">Name</th>
+                        <th id="speed-header">Speed</th>
+                        <th id="distance-header">Distance</th>
+                        <th id="time-header">Time</th>
+                    </tr>
+                </thead>
+                <tbody id="leaderboard-body">
+                    <!-- Leaderboard rows will be dynamically generated here -->
+                </tbody>
+            </table>
+        </div>
     </section>
     <section>
         <div id="race-track"></div>
+    </section>
+    <section id="add-sippypup-modal" class="modal" style="display: none;">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <span id="close-modal" class="close">&times;</span>
+            <h2>Add a SippyPup to the Race</h2>
+            <form id="add-sippypup-form">
+            </form>
+        </div>
     </section>
 </body>
 </html>

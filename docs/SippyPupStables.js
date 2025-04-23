@@ -11,3 +11,4 @@ class SippyPupStables {
 }
 
 export const SippyPupList = new SippyPupStables().SippyPupList;
+export default SippyPupStables;
