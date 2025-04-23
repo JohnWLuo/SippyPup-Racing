@@ -45,10 +45,14 @@ th {
     text-align: left;
 }
 
+tr {
+    height: 40px;
+}
+
 .name {
     padding-right: 30px;
     display: flex;
-    align-items: center;
+    align-items: center; /* Center text vertically */
 }
 
 .leaderboard-img {
@@ -62,15 +66,18 @@ th {
 
 #name-header {
     width: auto;
-    padding-right: 20px;
+    padding-right: 80px;
 }
 
 #speed-header {
     width: auto;
+    padding-right: 60px;
 }
 
 #distance-header {
     width: auto;
+    padding-right: 40px;
+
 }
 
 #time-header {
@@ -78,12 +85,13 @@ th {
 }
 
 .race-sippyPup {
-    width: 100px;
-    height: 100px;
+    width: 5vh;
+    height: 5vh;
+    aspect-ratio: 1 / 1; /* Ensure square ratio */
 }
 
 .pup-container {
-    height: 100px;
+    height: 5vh;
     padding-bottom: 10px;
 }
 
@@ -216,6 +224,24 @@ th {
     border-color: #007bff;
 }
 
+.sippypup-button:disabled {
+    cursor: not-allowed;
+    position: relative;
+}
+
+.sippypup-button:disabled::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: calc(100% - 10px); /* Adjust for padding */
+    height: calc(100% - 10px); /* Adjust for padding */
+    background: rgba(128, 128, 128, 0.75); /* Grey overlay */
+    pointer-events: none;
+    border-radius: 10px; /* Match button's rounded corners */
+    margin: 5px; /* Match padding */
+}
+
 .tables-container {
     display: flex;
     gap: 20px; /* Add spacing between the tables */
@@ -229,18 +255,24 @@ th {
 .position {
     font-weight: bolder;
     font-size: xx-large;
-    -webkit-text-stroke: 2px black; /* Add a black outline to the text for supported browsers */
     padding-left: 10px;
+    font-family: 'Courier New'; /* Use Mario Party font */
 }
 
 .position.gold {
     color: gold;
+    -webkit-text-stroke: 1.5px black; /* Add a black outline to the text for supported browsers */
+
 }
 
 .position.silver {
     color: silver;
+    -webkit-text-stroke: 1.5px black; /* Add a black outline to the text for supported browsers */
+
 }
 
 .position.bronze {
     color: burlywood;
+    -webkit-text-stroke: 1.5px black; /* Add a black outline to the text for supported browsers */
+
 }

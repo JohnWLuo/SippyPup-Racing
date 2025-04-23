@@ -18,7 +18,7 @@ class SippyPup {
     changeSpeed() {
         if (!this.isMoving) return;
         this.speed = this.getRandomSpeed();
-        this.speedDisplay = this.speed.toFixed(2) + "%";
+        this.speedDisplay = this.speed.toFixed(2) * 8 + " MPH";
         setTimeout(this.changeSpeed.bind(this), Math.random() * 500 + 500);
     }
 
