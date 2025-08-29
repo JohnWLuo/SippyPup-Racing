@@ -7,9 +7,8 @@ class SippyPupStables {
         const palmesan = new SippyPup("Palmesan.png", "Palmesan", false);
         const lily = new SippyPup("Lily.png", "Lily", false);
         const lynko = new SippyPup("Lynko.png", "Lynko", true);
-        const yan = new SippyPup("FF14 Yan.png", "Yan", false);
 
-        this.SippyPupList = [hankyPanky, lyn, palmesan, lily, lynko, yan];
+        this.SippyPupList = [hankyPanky, lyn, palmesan, lily, lynko];
     }
 }
 
