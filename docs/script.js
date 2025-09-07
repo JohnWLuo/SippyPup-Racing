@@ -11,6 +11,7 @@ leaderboardBodyPosition = document.getElementById("position-leaderboard-body"); 
 
 const startButton = document.getElementById("start-button");
 const resetButton = document.getElementById("reset-button");
+const clearButton = document.getElementById("clear-button");
 const getInfoButton = document.getElementById("get-info-button"); // Add getInfoButton
 const raceTrack = document.getElementById("race-track");
 const addSippyPupButton = document.getElementById("add-sippypup-button");
@@ -85,7 +86,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     startButton.addEventListener("click", startRace);
     resetButton.addEventListener("click", resetRace);
-    getInfoButton.addEventListener("click", getInfo); // Connect Get Info button to getInfo function
+    clearButton.addEventListener("click", clearRace);
 });
 
 function createSippyPupElements(sippyPup, index) {
@@ -115,7 +116,7 @@ function createSippyPupElements(sippyPup, index) {
             <img src="SippyPups/${sippyPup.imageName}" alt="${sippyPup.name}" class="leaderboard-img">
             ${sippyPup.name}
         </td>
-        <td class="speed">0 MPH</td>
+        <td class="speed">0 MPHf</td>
         <td class="distance">0%</td>
         <td class="time">0.000s</td>
         <td class="actions">
@@ -214,6 +215,17 @@ function resetRace() {
             leaderboardBody.appendChild(row); // Move row to the correct position
         }
     });
+}
+
+function clearRace() {
+    resetRace();
+
+    // Click all remove buttons
+    document.querySelectorAll('.remove-button').forEach(button => {
+        button.click();
+    });
+
+    console.log(SippyPupRacersList, leaderboardBody, startSippyPupRacersList);
 }
 
 function updateTimeAndDistance(sippyPup) {
