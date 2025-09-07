@@ -13,7 +13,7 @@ class SippyPup {
     }
 
     getRandomSpeed() {
-        return Math.random() * 12 + 0.5; // Random speed between 0.5% and 2% of the screen width per frame
+        return Math.random() * 4 + 0.5; // Random speed between 0.5% and 2% of the screen width per frame
     }
     
     changeSpeed() {
