@@ -16,7 +16,7 @@ class SippyPupStables {
         const mermaidWaterSangria = new SippyPup("Mermaid Water Sangria.png", "Mermaid Water Sangria", false);
         const miamiVice = new SippyPup("Miami Vice.png", "Miami Vice", false);
         const nakedFamous = new SippyPup("Naked & Famous.png", "Naked & Famous", false);
-        const pancakeMild = new SippyPup("Pancake Mild.png", "Pancake Mild", false);
+        const pancakeMild = new SippyPup("Pancake Milk.png", "Pancake Milk", false);
         const pimmsCup = new SippyPup("Pimm's Cup.png", "Pimm's Cup", false);
         const rootBeer = new SippyPup("Root Beer.png", "Root Beer", false);
         const thickWater = new SippyPup("Thick Water.png", "Thick Water", false);
