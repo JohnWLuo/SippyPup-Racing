@@ -9,10 +9,11 @@ class SippyPup {
         this.animationFrameId = null;
         this.timeInterval = null;
         this.startTime = null;
+        this.timeDisplay = 0.000;
     }
 
     getRandomSpeed() {
-        return Math.random() * 2 + 0.5; // Random speed between 0.5% and 2% of the screen width per frame
+        return Math.random() * 12 + 0.5; // Random speed between 0.5% and 2% of the screen width per frame
     }
     
     changeSpeed() {
@@ -33,13 +34,16 @@ class SippyPup {
 
         if (this.position + (this.img.width / window.innerWidth) * 100 < 100) {
             this.animationFrameId = requestAnimationFrame(this.moveImage.bind(this));
+            const elapsedTime = Date.now() - this.startTime;
+            this.timeDisplay = (elapsedTime / 1000).toFixed(3);
         } else {
             this.position = 100 - (this.img.width / window.innerWidth) * 100;
             this.img.style.left = this.position + "%";
             this.distanceDisplay = "100%"; // Ensure distance shows 100%
             this.isMoving = false;
-            clearInterval(this.timeInterval);
+
             if (this.onMove) this.onMove();
+            console.log(`${this.name} has reached the finish line! at time: ${this.timeDisplay}s`);
         }
     }
 
@@ -47,10 +51,7 @@ class SippyPup {
     start() {
         this.isMoving = true;
         this.startTime = Date.now();
-        this.timeInterval = setInterval(() => {
-            const elapsedTime = Date.now() - this.startTime;
-            this.timeDisplay = (elapsedTime / 1000).toFixed(3);
-        }, 10);
+
         this.moveImage();
         this.changeSpeed();
     }

@@ -116,7 +116,7 @@ function createSippyPupElements(sippyPup, index) {
             <img src="SippyPups/${sippyPup.imageName}" alt="${sippyPup.name}" class="leaderboard-img">
             ${sippyPup.name}
         </td>
-        <td class="speed">0 MPHf</td>
+        <td class="speed">0 MPH</td>
         <td class="distance">0%</td>
         <td class="time">0.000s</td>
         <td class="actions">
@@ -186,7 +186,7 @@ function startRace() {
         sippyPup.onMove = function() {
             updateTimeAndDistance(sippyPup);
             updateLeaderboard();
-        }; // Update leaderboard on move
+        };
     });
 }
 
@@ -233,7 +233,7 @@ function updateTimeAndDistance(sippyPup) {
     if (row) {
         row.querySelector(".speed").textContent = sippyPup.speedDisplay;
         row.querySelector(".distance").textContent = sippyPup.distanceDisplay;
-        row.querySelector(".time").textContent = sippyPup.timeDisplay + 's';
+        row.querySelector(".time").textContent = parseFloat(sippyPup.timeDisplay).toFixed(3) + 's';
     }
 }
 
@@ -278,7 +278,7 @@ function updateLeaderboard() {
             // Update speed, distance, and time
             row.querySelector(".speed").textContent = sippyPup.speedDisplay;
             row.querySelector(".distance").textContent = sippyPup.distanceDisplay;
-            row.querySelector(".time").textContent = sippyPup.timeDisplay + 's';
+            row.querySelector(".time").textContent =  parseFloat(sippyPup.timeDisplay).toFixed(3) + 's';
         });
     }
 }
